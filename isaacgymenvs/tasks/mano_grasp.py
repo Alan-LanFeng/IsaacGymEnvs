@@ -39,7 +39,7 @@ from isaacgymenvs.utils.torch_jit_utils import scale, unscale, quat_mul, quat_co
 from isaacgymenvs.tasks.base.vec_task import VecTask
 
 
-class ShadowHand(VecTask):
+class ManoGrasp(VecTask):
 
     def __init__(self, cfg, rl_device, sim_device, graphics_device_id, headless, virtual_screen_capture, force_render):
 
@@ -120,6 +120,7 @@ class ShadowHand(VecTask):
 
         self.fingertips = ["robot0:ffdistal", "robot0:mfdistal", "robot0:rfdistal", "robot0:lfdistal", "robot0:thdistal"]
         self.hand_mount = ["robot0:wrist"]
+
         self.num_fingertips = len(self.fingertips)
 
         self.use_vel_obs = False
