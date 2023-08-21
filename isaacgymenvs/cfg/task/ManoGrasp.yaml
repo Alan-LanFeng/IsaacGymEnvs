@@ -1,5 +1,5 @@
 # used to create the object
-name: ShadowHand
+name: ManoGrasp
 
 physics_engine: ${..physics_engine}
 
@@ -7,7 +7,7 @@ physics_engine: ${..physics_engine}
 env: 
   numEnvs: ${resolve_default:16384,${...num_envs}}
   envSpacing: 0.75
-  episodeLength: 600
+  episodeLength: 128
   enableDebugVis: False
   aggregateMode: 1
 
@@ -17,17 +17,21 @@ env:
   stiffnessScale: 1.0
   forceLimitScale: 1.0
 
-  useRelativeControl: False
-  dofSpeedScale: 20.0
+  handTranslationStiffness: 50
+  handRotationStiffness: 50
+  handJointStiffness: 100
+
+  useRelativeControl: True
+  dofSpeedScale: 2
   actionsMovingAverage: 1.0
   controlFrequencyInv: 1 # 60 Hz
 
   startPositionNoise: 0.0
   startRotationNoise: 0.0
 
-  resetPositionNoise: 0.0
+  resetPositionNoise: 0.1
   resetRotationNoise: 0.0
-  resetDofPosRandomInterval: 0.2
+  resetDofPosRandomInterval: 0.1
   resetDofVelRandomInterval: 0.0
 
   # Random forces applied to the object
@@ -40,7 +44,7 @@ env:
   distRewardScale: -10
   rotRewardScale: 1.0
   rotEps: 0.1
-  actionPenaltyScale: -0.2
+  actionPenaltyScale: -0.1
   reachGoalBonus: 250
   fallDistance: 0.24
   fallPenalty: 0.0
@@ -53,7 +57,7 @@ env:
   maxConsecutiveSuccesses: 0
 
   asset:
-    assetFileName: "mjcf/open_ai_assets/hand/shadow_hand.xml"
+    assetFileName: "mano/mano_mean_meshcoll.urdf"
     assetFileNameBlock: "urdf/objects/cube_multicolor.urdf"
     assetFileNameEgg: "mjcf/open_ai_assets/hand/egg.xml"
     assetFileNamePen: "mjcf/open_ai_assets/hand/pen.xml"
@@ -62,6 +66,7 @@ env:
   enableCameraSensors: False
 
 task:
+  label_file: "data/handover_acr_all.pkl"
   randomize: False
   randomization_params:
     frequency: 720   # Define how many simulation steps between generating new randomizations
@@ -187,4 +192,4 @@ sim:
     bounce_threshold_velocity: 0.2 
     max_depenetration_velocity: 1000.0
     default_buffer_size_multiplier: 5.0
-    contact_collection: 0 # 0: CC_NEVER (don't collect contact info), 1: CC_LAST_SUBSTEP (collect only contacts on last substep), 2: CC_ALL_SUBSTEPS (broken - do not use!)
+    contact_collection: 1 # 0: CC_NEVER (don't collect contact info), 1: CC_LAST_SUBSTEP (collect only contacts on last substep), 2: CC_ALL_SUBSTEPS (broken - do not use!)
