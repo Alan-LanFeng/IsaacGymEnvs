@@ -17,7 +17,7 @@ env:
   stiffnessScale: 1.0
   forceLimitScale: 1.0
 
-  handTranslationStiffness: 50
+  handTranslationStiffness: 15
   handRotationStiffness: 50
   handJointStiffness: 100
 
@@ -58,7 +58,7 @@ env:
 
   asset:
     assetFileName: "mano/mano_mean_meshcoll.urdf"
-    assetFileNameBlock: "urdf/objects/cube_multicolor.urdf"
+    assetFileNameBlock: "urdf/objects/ob.urdf"
     assetFileNameEgg: "mjcf/open_ai_assets/hand/egg.xml"
     assetFileNamePen: "mjcf/open_ai_assets/hand/pen.xml"
 
@@ -66,7 +66,8 @@ env:
   enableCameraSensors: False
 
 task:
-  label_file: "data/handover_acr_all.pkl"
+  label_file: "data/acr_dict.pkl"
+  grasp_reference: "data/handover_acr_all.pkl"
   randomize: False
   randomization_params:
     frequency: 720   # Define how many simulation steps between generating new randomizations

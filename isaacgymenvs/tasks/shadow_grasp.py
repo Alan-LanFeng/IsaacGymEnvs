@@ -656,7 +656,7 @@ class ShadowHand(VecTask):
         self.rb_forces[env_ids, :, :] = 0.0
         self.rb_torques[env_ids, :, :] = 0.0
 
-        # reset object
+
         self.root_state_tensor[self.object_indices[env_ids]] = self.object_init_state[env_ids].clone()
         self.root_state_tensor[self.object_indices[env_ids], 0:2] = self.object_init_state[env_ids, 0:2] + \
             self.reset_position_noise * rand_floats[:, 0:2]
@@ -664,8 +664,7 @@ class ShadowHand(VecTask):
             self.reset_position_noise * rand_floats[:, self.up_axis_idx]
 
         # new_object_rot = randomize_rotation(rand_floats[:, 3], rand_floats[:, 4], self.x_unit_tensor[env_ids], self.y_unit_tensor[env_ids])
-        #
-        # self.root_state_tensor[self.object_indices[env_ids], 3:7] = new_object_rot
+
         self.root_state_tensor[self.object_indices[env_ids], 7:13] = torch.zeros_like(self.root_state_tensor[self.object_indices[env_ids], 7:13])
 
         self.root_state_tensor[self.hand_indices[env_ids]] = self.hand_start_states[env_ids].clone()
